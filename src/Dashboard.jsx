@@ -1,7 +1,9 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, BeakerIcon } from '@heroicons/react/24/outline';
 import { data } from './test';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Test from './components/Test';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 
@@ -24,9 +26,17 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Example() {
+export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isIndex, setIsIndex] = useState(0);
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  });
 
   return (
     <>
@@ -129,18 +139,27 @@ export default function Example() {
         {/* Static sidebar for desktop */}
         <div className='hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col'>
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className='flex grow flex-col gap-y-5 overflow-y-auto bg-dark-dark px-6 pb-4'>
-            <div className='flex h-30 shrink-0 items-center'>
+          <div className='flex grow flex-col gap-y-12 overflow-y-auto bg-dark-dark px-6 pb-4'>
+            <div className='flex gap-4 h-30 shrink-0 items-center'>
               <img
                 className='h-20 mt-5 w-auto'
                 src='https://packschool.s3.amazonaws.com/PS_com+LOGO+1.png'
                 alt='Your Company'
               />
+              <div>
+                {user ? (
+                  <div className='text-white text-lg font-semibold leading-tight'>
+                    Hello, {user.user_metadata.name}
+                  </div>
+                ) : (
+                  ''
+                )}
+              </div>
             </div>
             <nav className='flex flex-1 flex-col'>
               <ul role='list' className='flex flex-1 flex-col gap-y-7'>
                 <li>
-                  <ul role='list' className='-mx-2 space-y-1'>
+                  <ul role='list' className='-mx-2 space-y-2'>
                     {navigation.map((item) => (
                       <li key={item.name}>
                         <div
@@ -149,7 +168,7 @@ export default function Example() {
                             Number(item.href) === isIndex
                               ? 'bg-gray-800 text-white'
                               : 'text-gray-400 hover:text-white hover:bg-gray-800',
-                            'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                            'cursor-pointer group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                           )}
                         >
                           <item.icon
@@ -164,12 +183,10 @@ export default function Example() {
                 </li>
 
                 <li className='mt-auto'>
-                  <a
-                    href='#'
-                    className='group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white'
-                  >
-                    Settings
-                  </a>
+                  <div className='group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-500 hover:bg-gray-800 hover:text-white items-center'>
+                    <span className='text-2xl'>0/12</span>{' '}
+                    <span className='text-white text-sm'>Tests Complete</span>
+                  </div>
                 </li>
               </ul>
             </nav>
@@ -193,7 +210,7 @@ export default function Example() {
               aria-hidden='true'
             />
 
-            <div className='flex flex-1 gap-x-4 justify-between lg:gap-x-6'>
+            <div className='flex flex-1 gap-x-4 justify-between lg:gap-x-6 md:px-8'>
               <div
                 onClick={() => (isIndex === 0 ? {} : setIsIndex(isIndex - 1))}
               >
@@ -211,7 +228,7 @@ export default function Example() {
             </div>
           </div>
 
-          <main className='py-10 bg-dark-mid grid this-height'>
+          <main className='py-10 md:px-8 bg-dark-mid grid this-height'>
             {/* MAIN STUFF */}
             <Test isIndex={isIndex} />
           </main>

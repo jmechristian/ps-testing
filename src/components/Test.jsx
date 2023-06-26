@@ -5,7 +5,7 @@ import { data } from '../test';
 
 const Test = ({ isIndex }) => {
   const [pass, setPass] = useState(undefined);
-  const [fail, setFail] = useState(false);
+
   return (
     <div className='px-4 sm:px-6 lg:px-8 w-full max-w-5xl'>
       <div className='w-full h-full flex flex-col justify-between'>
@@ -23,8 +23,11 @@ const Test = ({ isIndex }) => {
             Results
           </div>
           <div className='flex gap-6'>
-            <div className='flex flex-col items-center gap-3'>
-              <div onClick={() => setPass(true)}>
+            <div
+              className='flex flex-col items-center gap-3'
+              onClick={() => setPass(true)}
+            >
+              <div>
                 <CheckCircleIcon
                   className={`w-16 h-16 ${
                     pass ? 'fill-green-600' : 'fill-gray-700'
@@ -39,18 +42,22 @@ const Test = ({ isIndex }) => {
                 PASS
               </div>
             </div>
-            <div className='flex flex-col items-center gap-3'>
-              <div onClick={() => setPass(false)}>
+            <div
+              className='flex flex-col items-center gap-3'
+              onClick={() => setPass(false)}
+            >
+              <div>
                 <XCircleIcon
                   className={`w-16 h-16 ${
-                    !pass ? 'fill-red-600' : 'fill-gray-700'
+                    !pass && pass != undefined
+                      ? 'fill-red-600'
+                      : 'fill-gray-700'
                   }`}
                 />
               </div>
               <div
-                onClick={() => setPass(false)}
                 className={`font-bold text-lg ${
-                  !pass ? 'text-red-600' : 'text-gray-700'
+                  !pass && pass != undefined ? 'text-red-600' : 'text-gray-700'
                 }`}
               >
                 FAIL
@@ -60,11 +67,11 @@ const Test = ({ isIndex }) => {
           <div className='w-full max-w-5xl'>
             <form className='flex flex-col gap-3'>
               <textarea
-                className='w-full bg-gray-500 p-2 text-gray-200 rounded-md placeholder:text-gray-400'
+                className='w-full bg-gray-500 p-2 md:p-3 text-gray-200 rounded-md placeholder:text-gray-300'
                 placeholder='Feedback?'
                 rows='6'
               />
-              <button className='bg-clemson cursor-pointer text-white font-bold w-full py-4 rounded-lg flex items-center justify-center gap-3'>
+              <button className='bg-base-brand cursor-pointer text-white font-bold w-full py-4 rounded-lg flex items-center justify-center gap-3'>
                 <div>Submit and Continue</div>
                 <div>
                   <ArrowRightIcon className='w-5 h-5 text-white' />

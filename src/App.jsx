@@ -12,7 +12,7 @@ function App() {
     if (user) {
       navigate('/dashboard');
     }
-  }, [user]);
+  });
 
   return (
     <>
