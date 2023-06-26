@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/20/solid';
 import { data } from '../test';
 
 const Test = ({ isIndex }) => {
+  const [pass, setPass] = useState(undefined);
+  const [fail, setFail] = useState(false);
   return (
     <div className='px-4 sm:px-6 lg:px-8 w-full max-w-5xl'>
       <div className='w-full h-full flex flex-col justify-between'>
@@ -21,16 +24,37 @@ const Test = ({ isIndex }) => {
           </div>
           <div className='flex gap-6'>
             <div className='flex flex-col items-center gap-3'>
-              <div>
-                <CheckCircleIcon className='w-16 h-16 fill-gray-700' />
+              <div onClick={() => setPass(true)}>
+                <CheckCircleIcon
+                  className={`w-16 h-16 ${
+                    pass ? 'fill-green-600' : 'fill-gray-700'
+                  }`}
+                />
               </div>
-              <div className='font-bold text-lg text-gray-700'>PASS</div>
+              <div
+                className={`font-bold text-lg ${
+                  pass ? 'text-green-600' : 'text-gray-700'
+                }`}
+              >
+                PASS
+              </div>
             </div>
             <div className='flex flex-col items-center gap-3'>
-              <div>
-                <XCircleIcon className='w-16 h-16 fill-gray-700' />
+              <div onClick={() => setPass(false)}>
+                <XCircleIcon
+                  className={`w-16 h-16 ${
+                    !pass ? 'fill-red-600' : 'fill-gray-700'
+                  }`}
+                />
               </div>
-              <div className='font-bold text-lg text-gray-700'>FAIL</div>
+              <div
+                onClick={() => setPass(false)}
+                className={`font-bold text-lg ${
+                  !pass ? 'text-red-600' : 'text-gray-700'
+                }`}
+              >
+                FAIL
+              </div>
             </div>
           </div>
           <div className='w-full max-w-5xl'>

@@ -98,10 +98,10 @@ export default function Example() {
                           <ul role='list' className='-mx-2 space-y-1'>
                             {navigation.map((item) => (
                               <li key={item.name}>
-                                <a
-                                  href={item.href}
+                                <div
+                                  onClick={() => setIsIndex(Number(item.href))}
                                   className={classNames(
-                                    item.current
+                                    Number(item.href) === isIndex
                                       ? 'bg-gray-800 text-white'
                                       : 'text-gray-400 hover:text-white hover:bg-gray-800',
                                     'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
@@ -112,7 +112,7 @@ export default function Example() {
                                     aria-hidden='true'
                                   />
                                   {item.name}
-                                </a>
+                                </div>
                               </li>
                             ))}
                           </ul>
