@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/20/solid';
 import { createClient } from '@supabase/supabase-js';
 import { data } from '../test';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 const supabase = createClient(
   'https://iurvwisrpanriwttmzhs.supabase.co',
@@ -16,7 +15,8 @@ const Test = ({ isIndex, set }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [feedback, setFeedback] = useState('');
   const { currentUser } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
+
+  const testTitle = `test${isIndex + 1}`;
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ const Test = ({ isIndex, set }) => {
     const { data, error } = await supabase
       .from('testers')
       .update({
-        [`test${isIndex + 1}`]: {
+        [testTitle]: {
           pass: pass,
           feedback: feedback,
         },
@@ -40,6 +40,12 @@ const Test = ({ isIndex, set }) => {
     }
   };
 
+  useEffect(() => {
+    currentUser[testTitle] &&
+      currentUser[testTitle].feedback &&
+      setFeedback(currentUser[testTitle].feedback);
+  });
+
   return (
     <div className='px-4 sm:px-6 lg:px-8 w-full max-w-5xl'>
       <div className='w-full h-full flex flex-col justify-between'>
@@ -47,7 +53,7 @@ const Test = ({ isIndex, set }) => {
           <div className='font-bold uppercase tracking-[5px] text-base-brand text-lg'>
             Test {isIndex + 1}
           </div>
-          <div className='font-medium text-white text-4xl'>
+          <div className='font-medium text-white text-4xl leading-snug'>
             {data[isIndex].prompt}
           </div>
         </div>
@@ -64,13 +70,19 @@ const Test = ({ isIndex, set }) => {
               <div>
                 <CheckCircleIcon
                   className={`w-16 h-16 ${
-                    pass ? 'fill-green-600' : 'fill-gray-700'
+                    pass ||
+                    (currentUser[testTitle] && currentUser[testTitle].pass)
+                      ? 'fill-green-600'
+                      : 'fill-gray-700'
                   }`}
                 />
               </div>
               <div
                 className={`font-bold text-lg ${
-                  pass ? 'text-green-600' : 'text-gray-700'
+                  pass ||
+                  (currentUser[testTitle] && currentUser[testTitle].pass)
+                    ? 'text-green-600'
+                    : 'text-gray-700'
                 }`}
               >
                 PASS
@@ -83,7 +95,9 @@ const Test = ({ isIndex, set }) => {
               <div>
                 <XCircleIcon
                   className={`w-16 h-16 ${
-                    !pass && pass != undefined
+                    (!pass && pass != undefined) ||
+                    (currentUser[testTitle] &&
+                      currentUser[testTitle].pass === false)
                       ? 'fill-red-600'
                       : 'fill-gray-700'
                   }`}
@@ -91,7 +105,11 @@ const Test = ({ isIndex, set }) => {
               </div>
               <div
                 className={`font-bold text-lg ${
-                  !pass && pass != undefined ? 'text-red-600' : 'text-gray-700'
+                  (!pass && pass != undefined) ||
+                  (currentUser[testTitle] &&
+                    currentUser[testTitle].pass === false)
+                    ? 'text-red-600'
+                    : 'text-gray-700'
                 }`}
               >
                 FAIL
