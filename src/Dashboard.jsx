@@ -228,9 +228,16 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <main className='py-10 md:px-8 bg-dark-mid grid this-height'>
+          <main className='py-10 md:px-8 bg-dark-mid  this-height'>
             {/* MAIN STUFF */}
-            <Test isIndex={isIndex} />
+            {data.map((it, i) => (
+              <div
+                key={it.name}
+                className={`${i === isIndex ? 'block' : 'hidden'}`}
+              >
+                <Test isIndex={isIndex} />
+              </div>
+            ))}
           </main>
         </div>
       </div>

@@ -54,11 +54,11 @@ export default function Login() {
                 <div className='uppercase tracking-[9px] font-extrabold text-base-brand'>
                   Sign In To
                 </div>
-                <div className='font-semibold text-8xl text-white'>
+                <div className='font-semibold text-7xl text-white'>
                   Begin Testing
                 </div>
                 <div
-                  className='w-fit mt-4 bg-base-brand text-white text-sm font-bold text-center rounded-lg px-6 py-3'
+                  className='w-fit mt-4 bg-base-brand cursor-pointer text-white text-sm font-bold text-center rounded-lg px-6 py-3'
                   onClick={signInWithGoogle}
                 >
                   {/* <ArrowRightIcon className='w-20 h-20 text-white' /> */}
