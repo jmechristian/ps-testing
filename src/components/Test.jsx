@@ -45,11 +45,17 @@ const Test = ({ isIndex, set }) => {
       ? setFeedback(currentUser[testTitle].feedback)
       : setFeedback('');
 
-    setPass(
-      currentUser && currentUser[testTitle].pass
-        ? currentUser[testTitle].pass === true
-        : undefined
-    );
+    if (currentUser && currentUser[testTitle].pass === true) {
+      setPass(true);
+    }
+
+    if (currentUser && currentUser[testTitle].pass === false) {
+      setPass(false);
+    }
+
+    if (currentUser && currentUser[testTitle].pass === 'undefined') {
+      setPass(undefined);
+    }
   }, [currentUser, testTitle]);
 
   return (
