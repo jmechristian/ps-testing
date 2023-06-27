@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, BeakerIcon } from '@heroicons/react/24/outline';
 import { data } from './test';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Test from './components/Test';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
@@ -27,6 +27,7 @@ function classNames(...classes) {
 }
 
 export default function Dashboard() {
+  const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isIndex, setIsIndex] = useState(0);
   const navigate = useNavigate();
@@ -36,7 +37,10 @@ export default function Dashboard() {
     if (!user) {
       navigate('/');
     }
-  });
+    if (user) {
+      console.log('user');
+    }
+  }, [dispatch, user, navigate]);
 
   return (
     <>
