@@ -135,7 +135,12 @@ export default function Dashboard() {
                                   )}
                                 >
                                   <item.icon
-                                    className={`h-6 w-6 shrink-0 fill-green-600`}
+                                    className={`h-6 w-6 shrink-0 ${
+                                      currentUser &&
+                                      currentUser[testTitle].pass === true
+                                        ? 'stroke-green-600'
+                                        : 'text-red-600'
+                                    }`}
                                     aria-hidden='true'
                                   />
                                   {item.name}
@@ -146,6 +151,12 @@ export default function Dashboard() {
                         </li>
                       </ul>
                     </nav>
+                    <div className='flex gap-2 items-center  font-semibold'>
+                      <div className='text-3xl text-gray-500'>
+                        {isComplete}/12
+                      </div>{' '}
+                      <div className='text-white text-sm'>Tests Complete</div>
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
