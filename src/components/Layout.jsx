@@ -45,6 +45,19 @@ const Layout = ({ children }) => {
     }
   }, [user]);
 
+  useEffect(() => {
+    const testers = supabase
+      .channel('custom-all-channel')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'testers' },
+        (payload) => {
+          dispatch(setCurrentUser(payload.new));
+        }
+      )
+      .subscribe();
+  });
+
   return <div>{children}</div>;
 };
 

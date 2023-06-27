@@ -31,14 +31,11 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isIndex, setIsIndex] = useState(0);
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+  const { user, currentUser } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!user) {
       navigate('/');
-    }
-    if (user) {
-      console.log('user');
     }
   }, [dispatch, user, navigate]);
 
