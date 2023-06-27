@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { setCurrentUser } from '../authSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,8 @@ const Layout = ({ children }) => {
   );
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+
+  const dataFetchedRef = useRef(false);
 
   const getCurentUser = async () => {
     let { data: testers, error } = await supabase
@@ -28,7 +30,7 @@ const Layout = ({ children }) => {
         ])
         .select();
       if (data) {
-        dispatch(setCurrentUser(data));
+        dispatch(setCurrentUser(data[0]));
       } else if (error) {
         console.log(error);
       }
@@ -37,10 +39,10 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     if (user) {
+      if (dataFetchedRef.current) return;
+      dataFetchedRef.current = true;
       getCurentUser();
     }
-
-    return () => {};
   }, [user]);
 
   return <div>{children}</div>;
