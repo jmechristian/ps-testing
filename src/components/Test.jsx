@@ -44,6 +44,12 @@ const Test = ({ isIndex, set }) => {
     currentUser && currentUser[testTitle] && currentUser[testTitle].feedback
       ? setFeedback(currentUser[testTitle].feedback)
       : setFeedback('');
+
+    setPass(
+      currentUser && currentUser[testTitle].pass
+        ? currentUser[testTitle].pass === true
+        : undefined
+    );
   }, [currentUser, testTitle]);
 
   return (
@@ -70,23 +76,13 @@ const Test = ({ isIndex, set }) => {
               <div>
                 <CheckCircleIcon
                   className={`w-16 h-16 ${
-                    pass ||
-                    (currentUser &&
-                      currentUser[testTitle] &&
-                      currentUser[testTitle].pass)
-                      ? 'fill-green-600'
-                      : 'fill-gray-700'
+                    pass ? 'fill-green-600' : 'fill-gray-700'
                   }`}
                 />
               </div>
               <div
                 className={`font-bold text-lg ${
-                  pass ||
-                  (currentUser &&
-                    currentUser[testTitle] &&
-                    currentUser[testTitle].pass)
-                    ? 'text-green-600'
-                    : 'text-gray-700'
+                  pass ? 'text-green-600' : 'text-gray-700'
                 }`}
               >
                 PASS
@@ -99,10 +95,7 @@ const Test = ({ isIndex, set }) => {
               <div>
                 <XCircleIcon
                   className={`w-16 h-16 ${
-                    (!pass && pass != undefined) ||
-                    (currentUser &&
-                      currentUser[testTitle] &&
-                      currentUser[testTitle].pass === false)
+                    !pass && pass != undefined
                       ? 'fill-red-600'
                       : 'fill-gray-700'
                   }`}
@@ -110,12 +103,7 @@ const Test = ({ isIndex, set }) => {
               </div>
               <div
                 className={`font-bold text-lg ${
-                  (!pass && pass != undefined) ||
-                  (currentUser &&
-                    currentUser[testTitle] &&
-                    currentUser[testTitle].pass === false)
-                    ? 'text-red-600'
-                    : 'text-gray-700'
+                  !pass && pass != undefined ? 'text-red-600' : 'text-gray-700'
                 }`}
               >
                 FAIL
