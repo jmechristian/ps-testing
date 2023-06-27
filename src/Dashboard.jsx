@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, BeakerIcon } from '@heroicons/react/24/outline';
 import { data } from './test';
@@ -29,9 +29,25 @@ function classNames(...classes) {
 export default function Dashboard() {
   const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isComplete, setIsComplete] = useState('0');
   const [isIndex, setIsIndex] = useState(0);
   const navigate = useNavigate();
   const { user, currentUser } = useSelector((state) => state.auth);
+
+  const testTitle = `test${isIndex + 1}`;
+
+  useEffect(() => {
+    let count = 0;
+    if (currentUser) {
+      Object.entries(currentUser).forEach(([key, value]) => {
+        if (value.pass && value.pass === true) {
+          setIsComplete((count += 1));
+        }
+      });
+    }
+
+    console.log(count);
+  }, [currentUser]);
 
   useEffect(() => {
     if (!user) {
@@ -119,7 +135,9 @@ export default function Dashboard() {
                                   )}
                                 >
                                   <item.icon
-                                    className='h-6 w-6 shrink-0'
+                                    className={`h-6 w-6 shrink-0 ${
+                                      currentUser && 'text-green'
+                                    }`}
                                     aria-hidden='true'
                                   />
                                   {item.name}
@@ -185,7 +203,7 @@ export default function Dashboard() {
 
                 <li className='mt-auto'>
                   <div className='group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-500 hover:bg-gray-800 hover:text-white items-center'>
-                    <span className='text-2xl'>0/12</span>{' '}
+                    <span className='text-2xl'>{isComplete}/12</span>{' '}
                     <span className='text-white text-sm'>Tests Complete</span>
                   </div>
                 </li>
