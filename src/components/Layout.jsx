@@ -53,6 +53,7 @@ const Layout = ({ children }) => {
         { event: '*', schema: 'public', table: 'testers' },
         (payload) => {
           dispatch(setCurrentUser(payload.new));
+          console.log(payload);
         }
       )
       .subscribe();

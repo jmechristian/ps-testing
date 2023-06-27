@@ -40,7 +40,7 @@ export default function Dashboard() {
     let count = 0;
     if (currentUser) {
       Object.entries(currentUser).forEach(([key, value]) => {
-        if (value.pass && value.pass === true) {
+        if (value.pass != 'undefined') {
           setIsComplete((count += 1));
         }
       });
@@ -135,9 +135,7 @@ export default function Dashboard() {
                                   )}
                                 >
                                   <item.icon
-                                    className={`h-6 w-6 shrink-0 ${
-                                      currentUser && 'text-green'
-                                    }`}
+                                    className={`h-6 w-6 shrink-0 fill-green-600`}
                                     aria-hidden='true'
                                   />
                                   {item.name}
@@ -191,7 +189,7 @@ export default function Dashboard() {
                           )}
                         >
                           <item.icon
-                            className='h-6 w-6 shrink-0'
+                            className={`h-6 w-6 shrink-0`}
                             aria-hidden='true'
                           />
                           {item.name}
