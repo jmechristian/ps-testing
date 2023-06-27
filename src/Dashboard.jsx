@@ -239,7 +239,7 @@ export default function Dashboard() {
                 key={it.name}
                 className={`${i === isIndex ? 'block' : 'hidden'}`}
               >
-                <Test isIndex={isIndex} />
+                <Test isIndex={isIndex} set={(val) => setIsIndex(val)} />
               </div>
             ))}
           </main>

@@ -4,20 +4,23 @@ import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/20/solid';
 import { createClient } from '@supabase/supabase-js';
 import { data } from '../test';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const supabase = createClient(
   'https://iurvwisrpanriwttmzhs.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml1cnZ3aXNycGFucml3dHRtemhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODc2NjAzMjksImV4cCI6MjAwMzIzNjMyOX0.gYXFMwEUiceHICPB5cgbTnU7kbyEJ8sLgCqroyvtSac'
 );
 
-const Test = ({ isIndex }) => {
+const Test = ({ isIndex, set }) => {
   const [pass, setPass] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(false);
   const [feedback, setFeedback] = useState('');
   const { currentUser } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const { data, error } = await supabase
       .from('testers')
       .update({
@@ -28,6 +31,13 @@ const Test = ({ isIndex }) => {
       })
       .eq('id', currentUser.id)
       .select();
+
+    if (data) {
+      setIsLoading(false);
+      set(isIndex + 1);
+    } else if (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -98,10 +108,16 @@ const Test = ({ isIndex }) => {
                 onChange={(e) => setFeedback(e.target.value)}
               />
               <button className='bg-base-brand cursor-pointer text-white font-bold w-full py-4 rounded-lg flex items-center justify-center gap-3'>
-                <div>Submit and Continue</div>
-                <div>
-                  <ArrowRightIcon className='w-5 h-5 text-white' />
-                </div>
+                {isLoading ? (
+                  <div>Meep...morp...boop...sending...</div>
+                ) : (
+                  <>
+                    <div>Submit and Continue</div>
+                    <div>
+                      <ArrowRightIcon className='w-5 h-5 text-white' />
+                    </div>
+                  </>
+                )}
               </button>
             </form>
           </div>
