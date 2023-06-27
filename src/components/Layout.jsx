@@ -19,7 +19,6 @@ const Layout = ({ children }) => {
       .eq('email', user.user_metadata.email);
 
     if (testers.length > 0) {
-      console.log('testers', testers);
       dispatch(setCurrentUser(testers[0]));
     } else {
       const { data, error } = await supabase
@@ -37,7 +36,11 @@ const Layout = ({ children }) => {
   };
 
   useEffect(() => {
-    user && getCurentUser();
+    if (user) {
+      getCurentUser();
+    }
+
+    return () => {};
   }, [user]);
 
   return <div>{children}</div>;
