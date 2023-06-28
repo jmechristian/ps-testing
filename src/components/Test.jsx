@@ -65,7 +65,7 @@ const Test = ({ isIndex, set }) => {
           <div className='font-bold uppercase tracking-[5px] text-base-brand text-lg'>
             Test {isIndex + 1}
           </div>
-          <div className='font-medium text-white text-4xl leading-snug'>
+          <div className='font-medium text-white text-3xl md:text-4xl leading-tight md:leading-snug'>
             {data[isIndex].prompt}
           </div>
         </div>

@@ -47,8 +47,6 @@ export default function Dashboard() {
       });
       setIsComplete(count.length);
     }
-
-    console.log(count);
   }, [currentUser]);
 
   useEffect(() => {
@@ -160,7 +158,7 @@ export default function Dashboard() {
                     </nav>
                     <div className='flex gap-2 items-center  font-semibold'>
                       <div className='text-3xl text-gray-500'>
-                        {isComplete}/12
+                        {12 - isComplete}/12
                       </div>{' '}
                       <div className='text-white text-sm'>Tests Complete</div>
                     </div>
