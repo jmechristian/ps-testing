@@ -123,7 +123,7 @@ export default function Dashboard() {
                       <ul role='list' className='flex flex-1 flex-col gap-y-7'>
                         <li>
                           <ul role='list' className='-mx-2 space-y-1'>
-                            {navigation.map((item) => (
+                            {navigation.map((item, index) => (
                               <li key={item.name}>
                                 <div
                                   onClick={() => setIsIndex(Number(item.href))}
@@ -137,9 +137,14 @@ export default function Dashboard() {
                                   <item.icon
                                     className={`h-6 w-6 shrink-0 ${
                                       currentUser &&
-                                      currentUser[testTitle].pass === true
+                                      currentUser[`test${index + 1}`].pass ===
+                                        true
                                         ? 'stroke-green-600'
-                                        : 'text-red-600'
+                                        : currentUser &&
+                                          currentUser[`test${index + 1}`]
+                                            .pass === false
+                                        ? 'text-red-600'
+                                        : 'text-gray-400'
                                     }`}
                                     aria-hidden='true'
                                   />
@@ -188,7 +193,7 @@ export default function Dashboard() {
               <ul role='list' className='flex flex-1 flex-col gap-y-7'>
                 <li>
                   <ul role='list' className='-mx-2 space-y-2'>
-                    {navigation.map((item) => (
+                    {navigation.map((item, index) => (
                       <li key={item.name}>
                         <div
                           onClick={() => setIsIndex(Number(item.href))}
@@ -200,7 +205,15 @@ export default function Dashboard() {
                           )}
                         >
                           <item.icon
-                            className={`h-6 w-6 shrink-0`}
+                            className={`h-6 w-6 shrink-0 ${
+                              currentUser &&
+                              currentUser[`test${index + 1}`].pass === true
+                                ? 'stroke-green-600'
+                                : currentUser &&
+                                  currentUser[`test${index + 1}`].pass === false
+                                ? 'text-red-600'
+                                : 'text-gray-400'
+                            }`}
                             aria-hidden='true'
                           />
                           {item.name}
