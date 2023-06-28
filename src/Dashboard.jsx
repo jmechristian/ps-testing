@@ -37,13 +37,15 @@ export default function Dashboard() {
   const testTitle = `test${isIndex + 1}`;
 
   useEffect(() => {
-    let count = 0;
+    let count = [];
     if (currentUser) {
       Object.entries(currentUser).forEach(([key, value]) => {
-        if (value.pass != 'undefined') {
-          setIsComplete((count += 1));
+        console.log(key, value);
+        if (value.pass === typeof boolean) {
+          count.push(value.pass);
         }
       });
+      setIsComplete(count.length);
     }
 
     console.log(count);
@@ -225,7 +227,7 @@ export default function Dashboard() {
 
                 <li className='mt-auto'>
                   <div className='group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-500 hover:bg-gray-800 hover:text-white items-center'>
-                    <span className='text-2xl'>{isComplete}/12</span>{' '}
+                    <span className='text-2xl'>{12 - isComplete}/12</span>{' '}
                     <span className='text-white text-sm'>Tests Complete</span>
                   </div>
                 </li>
