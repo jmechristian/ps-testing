@@ -34,7 +34,9 @@ const Test = ({ isIndex, set }) => {
 
     if (data) {
       setIsLoading(false);
-      set(isIndex + 1);
+      if (isIndex < 11) {
+        set(isIndex + 1);
+      }
     } else if (error) {
       console.log(error);
     }
