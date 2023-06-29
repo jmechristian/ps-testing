@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, BeakerIcon } from '@heroicons/react/24/outline';
 import { data } from './test';
@@ -137,10 +137,12 @@ export default function Dashboard() {
                                   <item.icon
                                     className={`h-6 w-6 shrink-0 ${
                                       currentUser &&
+                                      currentUser[`test${index + 1}`] &&
                                       currentUser[`test${index + 1}`].pass ===
                                         true
                                         ? 'stroke-green-600'
                                         : currentUser &&
+                                          currentUser[`test${index + 1}`] &&
                                           currentUser[`test${index + 1}`]
                                             .pass === false
                                         ? 'text-red-600'
@@ -207,9 +209,11 @@ export default function Dashboard() {
                           <item.icon
                             className={`h-6 w-6 shrink-0 ${
                               currentUser &&
+                              currentUser[`test${index + 1}`] &&
                               currentUser[`test${index + 1}`].pass === true
                                 ? 'stroke-green-600'
                                 : currentUser &&
+                                  currentUser[`test${index + 1}`] &&
                                   currentUser[`test${index + 1}`].pass === false
                                 ? 'text-red-600'
                                 : 'text-gray-400'
