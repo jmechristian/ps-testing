@@ -6,6 +6,7 @@ import Dashboard from './Dashboard.jsx';
 import { Provider } from 'react-redux';
 import { store } from './store.js';
 import Layout from './components/Layout.jsx';
+import Results from './components/Results.jsx';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <Dashboard />,
+  },
+  {
+    path: '/results',
+    element: <Results />,
   },
 ]);
 
