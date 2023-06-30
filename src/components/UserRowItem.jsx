@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   CheckCircleIcon,
   XCircleIcon,
@@ -19,7 +19,14 @@ const UserRowItem = ({ test }) => {
     }
   };
 
-  return <div>{test && getShit()}</div>;
+  return (
+    <div className='relative'>
+      {/* <div className='fixed z-20 w-72 bottom-[50%] max-w-prose p-9 rounded'>
+        {test.feedback && test.feedback}
+      </div> */}
+      {test && getShit()}
+    </div>
+  );
 };
 
 export default UserRowItem;

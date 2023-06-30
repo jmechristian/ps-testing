@@ -11,7 +11,7 @@ const supabase = createClient(
 );
 
 const Test = ({ isIndex, set }) => {
-  const [pass, setPass] = useState(undefined);
+  const [pass, setPass] = useState('undefined');
   const [isLoading, setIsLoading] = useState(false);
   const [feedback, setFeedback] = useState('');
   const { currentUser } = useSelector((state) => state.auth);
@@ -25,7 +25,7 @@ const Test = ({ isIndex, set }) => {
       .from('testers')
       .update({
         [testTitle]: {
-          pass: pass,
+          pass: pass ? pass : 'undefined',
           feedback: feedback,
         },
       })

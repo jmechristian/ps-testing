@@ -52,7 +52,7 @@ const Layout = ({ children }) => {
         'postgres_changes',
         { event: '*', schema: 'public', table: 'testers' },
         (payload) => {
-          if (payload.new.email === user.email)
+          if (user && payload.new.email === user.email)
             dispatch(setCurrentUser(payload.new));
           console.log(payload);
         }
