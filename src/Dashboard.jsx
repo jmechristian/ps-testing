@@ -40,7 +40,6 @@ export default function Dashboard() {
     let count = [];
     if (currentUser) {
       Object.entries(currentUser).forEach(([key, value]) => {
-        console.log(key, value);
         if (value.pass === typeof boolean) {
           count.push(value.pass);
         }
