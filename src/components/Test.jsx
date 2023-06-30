@@ -25,12 +25,7 @@ const Test = ({ isIndex, set }) => {
       .from('testers')
       .update({
         [testTitle]: {
-          pass:
-            pass && pass === true
-              ? pass
-              : pass && pass === false
-              ? pass
-              : 'undefined',
+          pass: pass,
           feedback: feedback,
         },
       })
