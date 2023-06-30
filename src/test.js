@@ -11,7 +11,7 @@ export const data = [
   {
     name: 'test_3',
     prompt:
-      '1) Sign out of your account. 2) Start a CMPM Application. 3) Choose to either SAVE or complete and SUBMIT the application. (Try to submit without the form being complete. Stripe payment can be ignored.)',
+      '1) If you are already signed in, sign out of your account. 2) Start a CMPM Application. 3) Choose to either SAVE or complete and SUBMIT the application. (Try to submit without the form being complete. Stripe payment can be ignored.)',
   },
   {
     name: 'test_4',
