@@ -20,7 +20,8 @@ export const data = [
   },
   {
     name: 'test_5',
-    prompt: '1) Edit your profile information. 2) Save and exit.',
+    prompt:
+      '1) Edit your profile information. 2) Save and exit your profile. When you return does your data persist?',
   },
   {
     name: 'test_6',

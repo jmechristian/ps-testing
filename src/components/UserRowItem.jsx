@@ -6,6 +6,8 @@ import {
 } from '@heroicons/react/20/solid';
 
 const UserRowItem = ({ test }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const getShit = () => {
     switch (test.pass) {
       case true:
@@ -19,12 +21,18 @@ const UserRowItem = ({ test }) => {
     }
   };
 
+  const feedbackOpenHandler = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <div className='relative'>
-      {/* <div className='fixed z-20 w-72 bottom-[50%] max-w-prose p-9 rounded'>
-        {test.feedback && test.feedback}
-      </div> */}
+    <div className='relative' onClick={feedbackOpenHandler}>
       {test && getShit()}
+      {isOpen && (
+        <div className='absolute z-20 w-[500px] rounded-lg shadow-sm max-w-3xl padding-6 bg-slate-100 left-1/2 -translate-x-1/2 flex flex-col'>
+          <div className='text-slate-900 text-sm p-4'>{test.feedback}</div>
+        </div>
+      )}
     </div>
   );
 };
